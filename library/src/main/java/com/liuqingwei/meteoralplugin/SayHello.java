@@ -1,5 +1,7 @@
 package com.liuqingwei.meteoralplugin;
 
+import android.util.Log;
+
 /**
  * Author : meteoral
  * WebSite : http://www.liuqingwei.com
@@ -9,6 +11,7 @@ package com.liuqingwei.meteoralplugin;
 
 public class SayHello {
     public static String Say(String str){
+        Log.e("SAY HELLO","This is a test String");
         System.out.println(str);
         return str;
     }
