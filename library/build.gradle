@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven'
 
 android {
     compileSdkVersion 25
@@ -6,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -21,6 +22,24 @@ android {
     }
 }
 
+uploadArchives {
+    configuration = configurations.archives
+    repositories.mavenDeployer {
+        repository(url: 'http://172.20.0.252:8081/repository/mg/') {//仓库地址
+            authentication(userName: mavenUser,//用户名    在~/.gradle/gradle.properties 中增加相应字段
+                    password: mavenPassword)//密码
+        }
+        pom.project {
+            name 'meteoral-library'
+            packaging 'aar'
+            description 'none'
+            url 'http://172.20.0.252:8081/repository/mg/'//仓库地址
+            groupId "com.liuqingwei.example"
+            artifactId rootProject.name //LibA
+            version android.defaultConfig.versionName
+        }
+    }
+}
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
